@@ -5,25 +5,21 @@ inputData.signUpData=()=>{
         {
             id:1,
             name:"FristName",
-            type:"text",
             isRequred:true
         },
         {
             id:2,
             name:"LastName",
-            type:"text",
             isRequred:true
         },
         {
             id:3,
             name:"Email",
-            type:"email",
             isRequred:true
         },
         {
             id:4,
             name:"Password",
-            type:"password",
             isRequred:true
         },
         // {
@@ -47,13 +43,11 @@ userData.signInData=()=>{
         {
             id:1,
             name:"UserName",
-            type:"text",
             isRequred:true
         },
         {
             id:2,
             name:"Password",
-            type:"password",
             isRequred:true
         }
     ]

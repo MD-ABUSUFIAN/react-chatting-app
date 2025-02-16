@@ -74,11 +74,9 @@ const handleSignOut=()=>{
            handleSignOut={handleSignOut}
            handleGithubLogin={handleGithubLogin}
            /> : <RegistrationForm />}
-        </div>
-         
-            <div className='mt-5'>
-
-                 {/* <span className='text-xl'>Already Register? {
+        </div> 
+            <div className=''>
+                 <span className='text-xl'>Already Register? {
                     !condition  ?<button
                     className=" text-blue-500 text-xl font-bolder cursor-pointer"
                     onClick={() => setCondition(true)}
@@ -89,10 +87,8 @@ const handleSignOut=()=>{
                 >
                   Register
                 </button> }
-                </span> 
-                */}
-                 
-                { <span className='text-xl'>Already Register? {
+                </span>  
+                {/* { <span className='text-xl'>Already Register? {
                     !condition && !users ?<button
                     className=" text-blue-500 text-xl font-bolder cursor-pointer"
                     onClick={() => setCondition(true)}
@@ -105,12 +101,8 @@ const handleSignOut=()=>{
                 </button> 
                 or New User
                   </> :users && ""}
-                 </span> }
-              
-              
-              
+                 </span> } */}
             </div>
-        
         </div>
         {/* <div className="formRightWrapper w-1/2 h-screen ">
           {condition ?<img className="w-full h-screen" src={loginBg} alt="" /> : <img className="w-full h-screen" src={registrationBg} alt="" />}
