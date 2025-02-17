@@ -71,9 +71,14 @@ const handleSignOut=()=>{
            {condition ? <LoginForm 
            handleGoogleLogin={handleGoogleLogin}
            users={users}
+           setUsers={setUsers}
            handleSignOut={handleSignOut}
            handleGithubLogin={handleGithubLogin}
-           /> : <RegistrationForm />}
+           /> : <RegistrationForm 
+           setUsers={setUsers} 
+           handleSignOut={handleSignOut}
+           users={users}
+           />}
         </div> 
             <div className=''>
                  <span className='text-xl'>Already Register? {

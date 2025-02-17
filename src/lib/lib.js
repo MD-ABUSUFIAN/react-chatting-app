@@ -42,7 +42,7 @@ userData.signInData=()=>{
     const signInField=[
         {
             id:1,
-            name:"UserName",
+            name:"Email",
             isRequred:true
         },
         {
