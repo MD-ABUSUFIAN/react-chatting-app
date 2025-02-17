@@ -6,6 +6,7 @@ import auth from '../../../Firebase/firebase.init'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import LoginUser from '../LoginUser';
 import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
 
 
 const RegistrationForm = ({setUsers,users,handleSignOut}) => {
@@ -48,14 +49,22 @@ createUserWithEmailAndPassword(auth, email, password)
 .then((result) => {
   // Signed up 
   const user = result.user;
-console.log(user);
+Swal.fire({
+      title: "SuccesFully Registration!",
+      text: "You clicked the button!",
+      icon: "success"
+    });
 setUsers(user)
 
 })
 .catch((error) => {
   const errorMessage = error.message;
-  alert(errorMessage)
-  console.log(errorMessage);
+      Swal.fire({
+            icon: "error",
+            title: "Oops Wrong...",
+            text: `${errorMessage}`,
+            footer: '<a href="#">Why do I have this issue?</a>'
+          });
 });
 
       

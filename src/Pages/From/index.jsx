@@ -6,6 +6,7 @@ import { useState } from 'react';
 import RegistrationForm from './RegistrationForm';
 import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup, signOut,  } from "firebase/auth";
 import auth from '../../Firebase/firebase.init';
+import Swal from 'sweetalert2';
 
 
 
@@ -54,9 +55,14 @@ const handleSignOut=()=>{
     setUsers(null)
     
   }).catch((error) => {
-  console.log("error",error);
-  
-    // An error happened.
+    const errorMessage = error.message;
+    Swal.fire({
+          icon: "error",
+          title: "Oops Wrong...",
+          text: `${errorMessage}`,
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
+
   });
 }
 

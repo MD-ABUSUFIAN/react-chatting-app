@@ -5,8 +5,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { HiEyeSlash } from 'react-icons/hi2';
 import LoginUser from '../LoginUser';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import auth from '../../../Firebase/firebase.init';
+import Swal from 'sweetalert2';
+import { FacebookAuthProvider } from 'firebase/auth';
 
 const LoginForm = ({
   handleGoogleLogin,
@@ -18,7 +20,7 @@ const LoginForm = ({
   // console.log(users.photoURL);
   const inputFieldData = userData.signInData();
   const [eye, setEye] = useState(true);
-  const [email,setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   // const[emailError,setEmailError]=useState("");
@@ -32,20 +34,52 @@ const LoginForm = ({
   };
   const handleSubmit = () => {
     signInWithEmailAndPassword(auth, email, password)
-  .then((result) => {
-    const user = result.user;
-    setUsers(user)
-    // ...
-  })
-  .catch((error) => {
-    const errorMessage = error.message;
-    alert(errorMessage)
-  });
- 
-    
+      .then((result) => {
+        const user = result.user;
+        setUsers(user);
+        Swal.fire({
+          title: 'SuccesFully Login!',
+          text: 'You clicked the button!',
+          icon: 'success',
+        });
+        // ...
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops Wrong...',
+          text: `${errorMessage}`,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
   };
-  
-  
+
+  const handleFacebookLogin = () => {
+    console.log('facebook click');
+
+    const facebookProvider = new FacebookAuthProvider();
+    signInWithPopup(auth, facebookProvider)
+      .then((result) => {
+        // The signed-in user info.
+        const user = result.user;
+        Swal.fire({
+          title: 'SuccesFully Login!',
+          text: 'You clicked the button!',
+          icon: 'success',
+        });
+        setUsers(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops Wrong...',
+          text: `${errorMessage}`,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+      });
+  };
 
   return (
     <div className="bg-gray-50 py-[84px] px-[94px] rounded-2xl">
@@ -58,7 +92,6 @@ const LoginForm = ({
             <form className="" action="#" onSubmit={(e) => e.preventDefault()}>
               {inputFieldData?.map(({ name, id, isRequred }) => (
                 <div key={id} className="flex flex-col gap-y-3">
-                    
                   <label htmlFor="">
                     {name}
                     <span className="text-red-500">{isRequred ? '*' : ''}</span>
@@ -105,7 +138,10 @@ const LoginForm = ({
                 onClick={handleGoogleLogin}
                 className="text-6xl m-2 drop-shadow-xl cursor-pointer"
               />
-              <FaFacebook className="text-blue-500 text-5xl m-2 drop-shadow-lg cursor-pointer" />
+              <FaFacebook
+                onClick={handleFacebookLogin}
+                className="text-blue-500 text-5xl m-2 drop-shadow-lg cursor-pointer"
+              />
               <FaGithub
                 onClick={handleGithubLogin}
                 className="text-5xl m-2 drop-shadow-lg cursor-pointer"
@@ -115,10 +151,7 @@ const LoginForm = ({
           </div>
         </div>
       ) : (
-        <LoginUser
-        handleSignOut={handleSignOut}
-        users={users}
-        />
+        <LoginUser handleSignOut={handleSignOut} users={users} />
       )}
     </div>
   );
