@@ -3,7 +3,11 @@ import { inputData } from '../../../lib/lib';
 import { FaEye } from 'react-icons/fa';
 import { HiEyeSlash } from 'react-icons/hi2';
 import auth from '../../../Firebase/firebase.init';
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from 'firebase/auth';
 import LoginUser from '../LoginUser';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
@@ -45,13 +49,12 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
       );
       const photoData = await result.json();
       setPhotoURL(photoData.url);
-      console.log(photoData);
+      // console.log(photoData);
     } else {
       setPassword(e.target.value);
     }
   };
   const handleSubmit = () => {
-    
     if (!fristName) {
       setfristNameError('Frist Name Missing');
     } else if (!lastName) {
@@ -63,7 +66,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
     } else if (!password) {
       setPasswordError('Password Missing');
     } else if (!term) {
-      console.log(term);
+      // console.log(term);
     } else {
       // passwrod validation
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{6,}$/;
@@ -81,28 +84,28 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
         .then((result) => {
           // Signed up
           const user = result.user;
-          sendEmailVerification(auth.currentUser)
-          .then(() => {
+          sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
-            console.log("Email verification sent!",auth.currentUser);
+            // console.log("Email verification sent!",auth.currentUser);
             Swal.fire({
               title: 'SuccesFully Registration!',
               text: 'You clicked the button!',
               icon: 'success',
             });
           });
-          // update user name and photo Url 
-          const userNamePhoto={
-            displayName:`${lastName}`,
-            photoURL:`${photoURL}`
-          }
-          updateProfile(auth.currentUser,userNamePhoto).then(() => {
-            // Profile updated!
-            setUsers(user);
-          }).catch((error) => {
-          console.error(error.message)
-          });
-          
+          // update user name and photo Url
+          const userNamePhoto = {
+            displayName: `${lastName}`,
+            photoURL: `${photoURL}`,
+          };
+          updateProfile(auth.currentUser, userNamePhoto)
+            .then(() => {
+              // Profile updated!
+              setUsers(user);
+            })
+            .catch((error) => {
+              console.error(error.message);
+            });
         })
 
         .catch((error) => {
@@ -117,11 +120,11 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
     }
   };
 
-console.log(users)
+  // console.log(users)
   return (
     <div className=" bg-gray-50 drop-shadow-lg px-[80px] py-15 rounded-2xl">
       {!users ? (
-        <div >
+        <div>
           <h1 className="text-blue-600 text-6xl font-extrabold text-center mb-5">
             Registration
           </h1>
@@ -211,10 +214,7 @@ console.log(users)
           </div>
         </div>
       ) : (
-        <LoginUser
-          handleSignOut={handleSignOut}
-          users={users}
-        ></LoginUser>
+        <LoginUser handleSignOut={handleSignOut} users={users}></LoginUser>
       )}
     </div>
   );
