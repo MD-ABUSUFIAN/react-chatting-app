@@ -3,7 +3,7 @@ import { inputData } from '../../../lib/lib';
 import { FaEye } from 'react-icons/fa';
 import { HiEyeSlash } from 'react-icons/hi2';
 import auth from '../../../Firebase/firebase.init';
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
 import LoginUser from '../LoginUser';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
@@ -51,6 +51,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
     }
   };
   const handleSubmit = () => {
+    
     if (!fristName) {
       setfristNameError('Frist Name Missing');
     } else if (!lastName) {
@@ -90,9 +91,20 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
               icon: 'success',
             });
           });
+          // update user name and photo Url 
+          const userNamePhoto={
+            displayName:`${lastName}`,
+            photoURL:`${photoURL}`
+          }
+          updateProfile(auth.currentUser,userNamePhoto).then(() => {
+            // Profile updated!
+            setUsers(user);
+          }).catch((error) => {
+          console.error(error.message)
+          });
           
-          setUsers(user);
         })
+
         .catch((error) => {
           const errorMessage = error.message;
           Swal.fire({
@@ -105,6 +117,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
     }
   };
 
+console.log(users)
   return (
     <div className=" bg-gray-50 drop-shadow-lg px-[80px] py-15 rounded-2xl">
       {!users ? (
@@ -201,7 +214,6 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
         <LoginUser
           handleSignOut={handleSignOut}
           users={users}
-          photoURL={photoURL}
         ></LoginUser>
       )}
     </div>

@@ -87,7 +87,7 @@ const handleSignOut=()=>{
            />}
         </div> 
             
-                 <span className='text-xl  mb-5'>Already Register? {
+                 <span className='text-lg font-medium  mb-5'>Already Register? {
                     !condition  ?<button
                     className=" text-blue-500 text-xl font-bolder cursor-pointer"
                     onClick={() => setCondition(true)}
