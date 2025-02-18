@@ -13,6 +13,8 @@ const RegistrationForm = ({setUsers,users,handleSignOut}) => {
   console.log(users);
   const inputFieldData = inputData.signUpData();
   const [eye, setEye] = useState(true);
+const [term,setTerm]=useState(false);
+
 
   const [fristName, setFristName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -43,7 +45,24 @@ const RegistrationForm = ({setUsers,users,handleSignOut}) => {
       alert('email missing');
     } else if (!password) {
       setPasswordError('Password Missing');
-    } else {
+    }
+      else if(!term){
+        console.log(term);
+      }
+     else {
+      // passwrod validation 
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{6,}$/;
+      if(!passwordRegex.test(password)){
+   
+        Swal.fire({
+              icon: "error",
+              title: "Passwrod Wrong...",
+              text: `At least one uppercase,one lowercase,one special charecter and one number`,
+              footer: '<a href="#">Why do I have this issue?</a>'
+            });
+        return
+      }
+
       // email authentication 
 createUserWithEmailAndPassword(auth, email, password)
 .then((result) => {
@@ -109,7 +128,7 @@ setUsers(user)
             {name == 'Password' && (<div>
               
                   { password &&<div onClick={() => setEye(!eye)}
-                  className="text-2xl cursor-pointer inline-block absolute  bottom-[20%] right-[5%]">
+                  className="text-2xl cursor-pointer inline-block absolute  bottom-[24%] right-[5%]">
                       {
                           eye ? <HiEyeSlash /> :<FaEye/>
                       }
@@ -129,14 +148,33 @@ setUsers(user)
             ) : (
               ''
             )}
+            
           </div>
+          
         ))}
-        <button
+         <div>   
+          <label >
+          <input onClick={()=>setTerm(!term)
+          } type="checkbox" name="term" />
+          <span> I accept all Condition</span>
+        </label>
+        </div>
+
+        {
+          term ? <button
           onClick={handleSubmit}
-          className="px-7 py-3 cursor-pointer bg-yellow-500 text-white rounded font-bolder text-2xl mt-2"
+          className="px-7 py-3 cursor-pointer bg-blue-600 text-white rounded font-bolder text-2xl mt-2"
         >
-          SignIn
+          Register
+        </button>:<button
+          className="px-7 py-3 cursor-pointer bg-blue-200 text-white rounded font-bolder text-2xl mt-2 focus:outline-none"
+          disabled
+        >
+          Register
         </button>
+        }
+       
+        
       </form>
     </div>
   </div>:<LoginUser 
