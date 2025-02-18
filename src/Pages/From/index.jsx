@@ -70,9 +70,9 @@ const handleSignOut=()=>{
   return (
     <div>
       <div className="formWrapper flex items-center justify-betwen">
-        <div className=' formLeftWrapper flex flex-col items-center justify-center w-1/2 h-screen'>
+        <div className=' formLeftWrapper flex flex-col items-center justify-center w-1/2 hv-screen'>
          
-        <div className=' p-16 rounded drop-shadow-lg'>
+        <div className=' p-6 rounded drop-shadow-lg'>
             
            {condition ? <LoginForm 
            handleGoogleLogin={handleGoogleLogin}
@@ -86,8 +86,8 @@ const handleSignOut=()=>{
            users={users}
            />}
         </div> 
-            <div className=''>
-                 <span className='text-xl'>Already Register? {
+            
+                 <span className='text-xl  mb-5'>Already Register? {
                     !condition  ?<button
                     className=" text-blue-500 text-xl font-bolder cursor-pointer"
                     onClick={() => setCondition(true)}
@@ -99,33 +99,17 @@ const handleSignOut=()=>{
                   Register
                 </button> }
                 </span>  
-                {/* { <span className='text-xl'>Already Register? {
-                    !condition && !users ?<button
-                    className=" text-blue-500 text-xl font-bolder cursor-pointer"
-                    onClick={() => setCondition(true)}
-                  >Login</button>:condition && !users ?<>
-                    <button
-                  className=" text-blue-500 text-xl font-bolder cursor-pointer "
-                  onClick={() => setCondition(false)}
-                >
-                  Register
-                </button> 
-                or New User
-                  </> :users && ""}
-                 </span> } */}
-            </div>
+               
+            
         </div>
-        {/* <div className="formRightWrapper w-1/2 h-screen ">
-          {condition ?<img className="w-full h-screen" src={loginBg} alt="" /> : <img className="w-full h-screen" src={registrationBg} alt="" />}
-          
-        </div> */}
-        <div className="formRightWrapper w-1/2 h-screen ">
+       
+        <div className="formRightWrapper w-1/2 vh-screen ">
           {condition && !users ?(
-            <img className="w-full h-screen" src={loginBg} alt="" />
+            <img className="w-full vh-screen" src={loginBg} alt="" />
           ) :!condition && !users ? (
-            <img className="w-full h-screen" src={registrationBg} alt="" />
+            <img className="w-full vh-screen" src={registrationBg} alt="" />
           ):users &&(
-            <img className="w-full h-screen" src={welcomeBg} alt="" />
+            <img className="w-full vh-screen" src={welcomeBg} alt="" />
           )}
         </div>
       </div>

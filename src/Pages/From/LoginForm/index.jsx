@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { HiEyeSlash } from 'react-icons/hi2';
 import LoginUser from '../LoginUser';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import auth from '../../../Firebase/firebase.init';
 import Swal from 'sweetalert2';
 import { FacebookAuthProvider } from 'firebase/auth';
@@ -36,13 +36,25 @@ const LoginForm = ({
     signInWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const user = result.user;
-        setUsers(user);
-        Swal.fire({
-          title: 'SuccesFully Login!',
-          text: 'You clicked the button!',
-          icon: 'success',
-        });
-        // ...
+        if (!user.emailVerified) {
+          Swal.fire({
+            title: 'plz visit your gmail and verified Email!',
+            text: 'You clicked the button!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          setUsers(user);
+          Swal.fire({
+            title: 'SuccesFully Login!',
+            text: 'You clicked the button!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+        }
+        console.log(user);
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -57,7 +69,6 @@ const LoginForm = ({
 
   const handleFacebookLogin = () => {
     console.log('facebook click');
-
     const facebookProvider = new FacebookAuthProvider();
     signInWithPopup(auth, facebookProvider)
       .then((result) => {
@@ -80,9 +91,41 @@ const LoginForm = ({
         });
       });
   };
-
+//  firebase reset password 
+const handleResetPassword=()=>{
+  if(!email){
+    Swal.fire({
+      icon: 'error',
+      title: 'Wrong Email Address...',
+      text: `Plz type valid Email Address`,
+    });
+  }
+  else{
+    sendPasswordResetEmail(auth, email)
+  .then(() => {
+    Swal.fire({
+      title: 'SuccesFully Sent Email!',
+      text: 'You Checked Email and Update Your New Password and try Again Login Valid Password!',
+      icon: 'success',
+    });
+  })
+  .catch((error) => {
+    const errorMessage = error.message;
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops Wrong...',
+          text: `${errorMessage}`,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+   
+  });
+    
+  }
+ 
+  
+}
   return (
-    <div className="bg-gray-50 py-[84px] px-[94px] rounded-2xl">
+    <div className="bg-gray-50 py-[84px] px-[94px] drop-shadow-lg rounded-2xl">
       {!users ? (
         <div>
           <h1 className="text-blue-600 text-6xl pb-10 font-extrabold">
@@ -115,7 +158,7 @@ const LoginForm = ({
                       {password && (
                         <div
                           onClick={() => setEye(!eye)}
-                          className="text-2xl cursor-pointer inline-block absolute  bottom-[57%] right-[5%]"
+                          className="text-2xl cursor-pointer inline-block absolute  bottom-[62%] right-[5%]"
                         >
                           {eye ? <HiEyeSlash /> : <FaEye />}
                         </div>
@@ -127,10 +170,11 @@ const LoginForm = ({
 
               <button
                 onClick={handleSubmit}
-                className="px-7 py-3 cursor-pointer bg-yellow-500 text-white rounded font-bolder text-2xl mt-5"
+                className="px-7 py-3 cursor-pointer bg-blue-600 text-white rounded font-bolder text-2xl mt-5"
               >
                 Login
               </button>
+               <p onClick={handleResetPassword} className='text-red-500 cursor-pointer mt-4 text-center text-xl font-bold'>Change or Reset Your Password ? </p>
             </form>
             <h1 className="text-center font-extrabold text-3xl">OR</h1>
             <div className="authentication flex flex-row gap-x-4 items-center justify-center mt-5">

@@ -3,7 +3,7 @@ import { inputData } from '../../../lib/lib';
 import { FaEye } from 'react-icons/fa';
 import { HiEyeSlash } from 'react-icons/hi2';
 import auth from '../../../Firebase/firebase.init';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import LoginUser from '../LoginUser';
 import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
@@ -80,11 +80,17 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
         .then((result) => {
           // Signed up
           const user = result.user;
-          Swal.fire({
-            title: 'SuccesFully Registration!',
-            text: 'You clicked the button!',
-            icon: 'success',
+          sendEmailVerification(auth.currentUser)
+          .then(() => {
+            // Email verification sent!
+            console.log("Email verification sent!",auth.currentUser);
+            Swal.fire({
+              title: 'SuccesFully Registration!',
+              text: 'You clicked the button!',
+              icon: 'success',
+            });
           });
+          
           setUsers(user);
         })
         .catch((error) => {
@@ -100,9 +106,9 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
   };
 
   return (
-    <>
+    <div className=" bg-gray-50 drop-shadow-lg px-[80px] py-15 rounded-2xl">
       {!users ? (
-        <div className="bg-gray-50 px-[80px] py-10 rounded-2xl">
+        <div >
           <h1 className="text-blue-600 text-6xl font-extrabold text-center mb-5">
             Registration
           </h1>
@@ -139,7 +145,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
                       {password && (
                         <div
                           onClick={() => setEye(!eye)}
-                          className="text-2xl cursor-pointer inline-block absolute  bottom-[21%] right-[5%]"
+                          className="text-2xl cursor-pointer inline-block absolute  bottom-[20%] right-[5%]"
                         >
                           {eye ? <HiEyeSlash /> : <FaEye />}
                         </div>
@@ -176,13 +182,13 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
               {term ? (
                 <button
                   onClick={handleSubmit}
-                  className="px-7 py-3 cursor-pointer bg-blue-600 text-white rounded font-bolder text-2xl mt-2"
+                  className="px-7 py-3 cursor-pointer bg-blue-600 text-white  rounded font-bolder text-2xl mt-1 "
                 >
                   Register
                 </button>
               ) : (
                 <button
-                  className="px-7 py-3 cursor-pointer bg-blue-200 text-white rounded font-bolder text-2xl mt-2 focus:outline-none"
+                  className="px-7 py-3 cursor-pointer text-white bg-blue-200 rounded font-bolder text-2xl mt-1 focus:outline-none"
                   disabled
                 >
                   Register
@@ -198,7 +204,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
           photoURL={photoURL}
         ></LoginUser>
       )}
-    </>
+    </div>
   );
 };
 RegistrationForm.propTypes = {
