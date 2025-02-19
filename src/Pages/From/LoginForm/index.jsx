@@ -1,6 +1,6 @@
 import { userData } from '../../../lib/lib';
 import { FcGoogle } from 'react-icons/fc';
-import { FaEye, FaFacebook, FaGithub, FaInstagram } from 'react-icons/fa';
+import { FaEye, FaFacebook, FaGithub,FaTwitter } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { HiEyeSlash } from 'react-icons/hi2';
@@ -20,6 +20,7 @@ const LoginForm = ({
   setUsers,
   handleSignOut,
   handleGithubLogin,
+  handleTwitterLogin
 }) => {
   // console.log(users.photoURL);
   const inputFieldData = userData.signInData();
@@ -194,7 +195,7 @@ const LoginForm = ({
                 onClick={handleGithubLogin}
                 className="text-5xl m-2 drop-shadow-lg cursor-pointer"
               />
-              <FaInstagram className="text-5xl text-pink-600 m-2 drop-shadow-lg cursor-pointer" />
+              <FaTwitter onClick={handleTwitterLogin}  className="text-5xl text-blue-600 m-2 drop-shadow-lg cursor-pointer" />
             </div>
           </div>
         </div>
@@ -208,7 +209,9 @@ LoginForm.propTypes = {
   handleGoogleLogin: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func.isRequired,
   handleGithubLogin: PropTypes.func.isRequired,
+  handleTwitterLogin: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,
   setUsers: PropTypes.object.isRequired,
+  
 };
 export default LoginForm;

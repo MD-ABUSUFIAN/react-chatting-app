@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  TwitterAuthProvider,
 } from 'firebase/auth';
 import auth from '../../Firebase/firebase.init';
 import Swal from 'sweetalert2';
@@ -33,7 +34,7 @@ const Form = () => {
         console.log(error);
       });
   };
-
+  //  GitHub Authentication 
   const handleGithubLogin = () => {
     signInWithPopup(auth, gitHubProvider)
       .then((result) => {
@@ -64,6 +65,23 @@ const Form = () => {
       });
   };
 
+  // Twitter Authentication check 
+  const handleTwitterLogin=()=>{
+    
+    const provider = new TwitterAuthProvider();
+signInWithPopup(auth, provider)
+  .then((result) => {
+    const user = result.user;
+    setUsers(user)
+    console.log(user);
+    
+  }).catch((error) => {
+    const errorMessage = error.message;
+    console.log(errorMessage);
+    
+  });
+  }
+
   return (
     <div>
       <div className="formWrapper flex items-center justify-betwen">
@@ -76,6 +94,7 @@ const Form = () => {
                 setUsers={setUsers}
                 handleSignOut={handleSignOut}
                 handleGithubLogin={handleGithubLogin}
+                handleTwitterLogin={handleTwitterLogin}
               />
             ) : (
               <RegistrationForm
