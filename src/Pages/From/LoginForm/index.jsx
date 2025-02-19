@@ -1,18 +1,18 @@
 import { userData } from '../../../lib/lib';
 import { FcGoogle } from 'react-icons/fc';
-import { FaEye, FaFacebook, FaGithub,FaTwitter } from 'react-icons/fa';
+import { FaEye, FaFacebook, FaGithub, FaTwitter } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { HiEyeSlash } from 'react-icons/hi2';
 import LoginUser from '../LoginUser';
+import auth from '../../../Firebase/firebase.init';
+import sweetAlert from '../../../OtherFunction/Sweet Alert/sweetAlert.js';
+import { FacebookAuthProvider } from 'firebase/auth';
 import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
-import auth from '../../../Firebase/firebase.init';
-import Swal from 'sweetalert2';
-import { FacebookAuthProvider } from 'firebase/auth';
 
 const LoginForm = ({
   handleGoogleLogin,
@@ -20,7 +20,7 @@ const LoginForm = ({
   setUsers,
   handleSignOut,
   handleGithubLogin,
-  handleTwitterLogin
+  handleTwitterLogin,
 }) => {
   // console.log(users.photoURL);
   const inputFieldData = userData.signInData();
@@ -42,85 +42,57 @@ const LoginForm = ({
       .then((result) => {
         const user = result.user;
         if (!user.emailVerified) {
-          Swal.fire({
-            title: 'plz visit your gmail and verified Email!',
-            text: 'You clicked the button!',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          sweetAlert(
+            'SEND EMAIL',
+            'plz visit your gmail and verified Email!',
+            'success'
+          );
         } else {
           setUsers(user);
-          Swal.fire({
-            title: 'SuccesFully Login!',
-            text: 'You clicked the button!',
-            icon: 'success',
-            showConfirmButton: false,
-            timer: 1000,
-          });
+          sweetAlert('SuccesFully Login!', ' wellcome our New USER', 'success');
         }
         // console.log(user);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops Wrong...',
-          text: `${errorMessage}`,
-          footer: '<a href="#">Why do I have this issue?</a>',
-        });
+        sweetAlert('Oops Wrong...', errorMessage, 'error');
       });
   };
 
   const handleFacebookLogin = () => {
-    // console.log('facebook click');
     const facebookProvider = new FacebookAuthProvider();
     signInWithPopup(auth, facebookProvider)
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
-        Swal.fire({
-          title: 'SuccesFully Login!',
-          text: 'You clicked the button!',
-          icon: 'success',
-        });
+        sweetAlert('SuccesFully Login!', ' wellcome our New USER', 'success');
         setUsers(user);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops Wrong...',
-          text: `${errorMessage}`,
-          footer: '<a href="#">Why do I have this issue?</a>',
-        });
+        sweetAlert('Oops Wrong...', errorMessage, 'error');
       });
   };
   //  firebase reset password
   const handleResetPassword = () => {
     if (!email) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Wrong Email Address...',
-        text: `Plz type valid Email Address`,
-      });
+      sweetAlert(
+        'Plz type valid Email Address',
+        'Wrong Email Address...',
+        'error'
+      );
     } else {
       sendPasswordResetEmail(auth, email)
         .then(() => {
-          Swal.fire({
-            title: 'SuccesFully Sent Email!',
-            text: 'You Checked Email and Update Your New Password and try Again Login Valid Password!',
-            icon: 'success',
-          });
+          sweetAlert(
+            'SuccesFully Sent Email!!',
+            ' You Checked Email and Update Your New Password and try Again Login Valid Password!',
+            'success'
+          );
         })
         .catch((error) => {
           const errorMessage = error.message;
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops Wrong...',
-            text: `${errorMessage}`,
-            footer: '<a href="#">Why do I have this issue?</a>',
-          });
+          sweetAlert('Oops Wrong...', errorMessage, 'error');
         });
     }
   };
@@ -195,7 +167,10 @@ const LoginForm = ({
                 onClick={handleGithubLogin}
                 className="text-5xl m-2 drop-shadow-lg cursor-pointer"
               />
-              <FaTwitter onClick={handleTwitterLogin}  className="text-5xl text-blue-600 m-2 drop-shadow-lg cursor-pointer" />
+              <FaTwitter
+                onClick={handleTwitterLogin}
+                className="text-5xl text-blue-600 m-2 drop-shadow-lg cursor-pointer"
+              />
             </div>
           </div>
         </div>
@@ -212,6 +187,5 @@ LoginForm.propTypes = {
   handleTwitterLogin: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,
   setUsers: PropTypes.object.isRequired,
-  
 };
 export default LoginForm;

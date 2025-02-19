@@ -4,6 +4,8 @@ import registrationBg from '../../assets/sign-up-concept-illustration_114360-796
 import welcomeBg from '../../assets/welcome-images.png';
 import { useState } from 'react';
 import RegistrationForm from './RegistrationForm';
+import auth from '../../Firebase/firebase.init';
+import sweetAlert from '../../OtherFunction/Sweet Alert/sweetAlert';
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -11,8 +13,6 @@ import {
   signOut,
   TwitterAuthProvider,
 } from 'firebase/auth';
-import auth from '../../Firebase/firebase.init';
-import Swal from 'sweetalert2';
 
 const Form = () => {
   const gitHubProvider = new GithubAuthProvider();
@@ -27,60 +27,61 @@ const Form = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result.user;
+        sweetAlert('SuccesFully Login!', ' Wellcome our New USER', 'success');
         setUsers(user);
       })
       .catch((error) => {
+        const errorMessage = error.message;
+        sweetAlert('Oops Wrong...', errorMessage, 'error');
         setUsers(null);
-        console.log(error);
       });
   };
-  //  GitHub Authentication 
+  //  GitHub Authentication
   const handleGithubLogin = () => {
     signInWithPopup(auth, gitHubProvider)
       .then((result) => {
         const user = result.user;
+        sweetAlert('SuccesFully Login!', ' Wellcome our New USER', 'success');
         setUsers(user);
       })
       .catch((error) => {
+        const errorMessage = error.message;
+        sweetAlert('Oops Wrong...', errorMessage, 'error');
         setUsers(null);
-        console.log(error);
       });
   };
-  // Google LogOut
+  // Google LogOut Authentication
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        // console.log("SIGNOUT DONE");
+        sweetAlert(
+          'LogOut Succesful!',
+          ' Try Login Email and Password',
+          'success'
+        );
         setUsers(null);
       })
       .catch((error) => {
         const errorMessage = error.message;
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops Wrong...',
-          text: `${errorMessage}`,
-          footer: '<a href="#">Why do I have this issue?</a>',
-        });
+        sweetAlert('Oops Wrong...', errorMessage, 'error');
       });
   };
 
-  // Twitter Authentication check 
-  const handleTwitterLogin=()=>{
-    
-    const provider = new TwitterAuthProvider();
-signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    setUsers(user)
-    console.log(user);
-    
-  }).catch((error) => {
-    const errorMessage = error.message;
-    console.log(errorMessage);
-    
-  });
-  }
+  // Twitter Authentication check
+  const handleTwitterLogin = () => {
+    const twitterPovider = new TwitterAuthProvider();
+    signInWithPopup(auth, twitterPovider)
+      .then((result) => {
+        const user = result.user;
+        sweetAlert('SuccesFully Login!', ' wellcome our New USER', 'success');
+        setUsers(user);
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        sweetAlert('Oops Wrong...', errorMessage, 'error');
+      });
+  };
 
   return (
     <div>

@@ -3,14 +3,15 @@ import { inputData } from '../../../lib/lib';
 import { FaEye } from 'react-icons/fa';
 import { HiEyeSlash } from 'react-icons/hi2';
 import auth from '../../../Firebase/firebase.init';
+import LoginUser from '../LoginUser';
+import PropTypes from 'prop-types';
+import sweetAlert from '../../../OtherFunction/Sweet Alert/sweetAlert';
 import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
   updateProfile,
 } from 'firebase/auth';
-import LoginUser from '../LoginUser';
-import PropTypes from 'prop-types';
-import Swal from 'sweetalert2';
+
 
 const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
   const inputFieldData = inputData.signUpData();
@@ -71,12 +72,11 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
       // passwrod validation
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{6,}$/;
       if (!passwordRegex.test(password)) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Passwrod Wrong...',
-          text: `At least one uppercase,one lowercase,one special charecter and one number`,
-          footer: '<a href="#">Why do I have this issue?</a>',
-        });
+        sweetAlert(
+          'Passwrod Wrong...',
+          ' At least one uppercase,one lowercase,one special charecter and one number',
+          'error'
+        );
         return;
       }
       // email authentication
@@ -86,12 +86,11 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
           const user = result.user;
           sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
-            // console.log("Email verification sent!",auth.currentUser);
-            Swal.fire({
-              title: 'SuccesFully Registration!',
-              text: 'You clicked the button!',
-              icon: 'success',
-            });
+            sweetAlert(
+              'SuccesFully Registration!',
+              ' Wellcome our New USER',
+              'success'
+            );
           });
           // update user name and photo Url
           const userNamePhoto = {
@@ -100,7 +99,6 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
           };
           updateProfile(auth.currentUser, userNamePhoto)
             .then(() => {
-              // Profile updated!
               setUsers(user);
             })
             .catch((error) => {
@@ -110,12 +108,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
 
         .catch((error) => {
           const errorMessage = error.message;
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops Wrong...',
-            text: `${errorMessage}`,
-            footer: '<a href="#">Why do I have this issue?</a>',
-          });
+          sweetAlert('Oops Wrong...', errorMessage, 'error');
         });
     }
   };
