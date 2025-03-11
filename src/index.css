@@ -14,3 +14,36 @@
     --color-primaryFontColor: var(--primaryFontColor);
     --color-secondaryFontColor: var(--secondaryFontColor);
   }
+  .active{
+    transition: all linear .3s;
+    cursor: pointer;
+    width: 80%;
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    position: relative;
+    margin: auto;
+  }
+
+  .active:hover{
+    background: rgba(19, 115, 232, 0.738);
+    
+
+  }
+  .active::after{
+    background: #1919f4;
+    content: "";
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    top: 0%;
+    right: -15%;
+    border-top-left-radius: 20%;
+    border-bottom-left-radius: 20%;
+    opacity: 0;
+
+  }
+  .active:hover::after{
+    opacity: 1;
+  }
+  

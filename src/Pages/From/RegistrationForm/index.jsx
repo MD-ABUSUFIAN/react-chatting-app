@@ -101,11 +101,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
             .then(() => {
               setUsers(user);
             })
-            .catch((error) => {
-              console.error(error.message);
-            });
         })
-
         .catch((error) => {
           const errorMessage = error.message;
           sweetAlert('Oops Wrong...', errorMessage, 'error');
