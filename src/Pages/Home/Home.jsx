@@ -4,7 +4,7 @@ import Sidebar from '../../Components/HomeComponents/Sidebar'
 
 const Home = () => {
   return (
-    <div className='flex'>
+    <div className='flex h-screen'>
       <div className="sideBar w-[10%]">
       <Sidebar/>
       </div>

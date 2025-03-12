@@ -1,6 +1,13 @@
 import React from 'react'
-import { IoCloudUploadOutline, IoHomeOutline, IoSettingsOutline } from "react-icons/io5";
-import { NavLink } from 'react-router';
+import { IoCloudUploadOutline, IoHomeOutline, IoSettingsOutline} from "react-icons/io5";
+import { LuMessageCircleMore } from "react-icons/lu";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { MdLogout } from "react-icons/md";
+
+
+
+import { NavLink ,
+} from 'react-router';
 
 
 const Sidebar = () => {
@@ -12,12 +19,14 @@ const Sidebar = () => {
         },
         {
             id:2,
-            icon:<IoHomeOutline />
+            icon:<LuMessageCircleMore />
+
 
         },
         {
             id:3,
-            icon:<IoHomeOutline />
+            icon:<IoMdNotificationsOutline />
+
 
         },
         {
@@ -27,13 +36,14 @@ const Sidebar = () => {
         },
         {
             id:5,
-            icon:<IoSettingsOutline />
+            icon:<MdLogout />
+
 
 
         },
     ]
   return (
-        <div className="sidebar bg-amber-500 w-full h-dvh">
+        <div className="sidebar bg-blue-500 w-full h-dvh">
             <div className="profileImgWrapper">
                 <div className=' relative flex items-center group justify-center ease-linear duration-500
 '>
@@ -51,8 +61,8 @@ const Sidebar = () => {
 
                         {
                             profileIcons.map((item,index)=>
-                            profileIcons.length-1==index ? (<div className='mt-10'><span className='flex items-center justify-center active text-5xl text-white' key={item.id}>   {item?.icon}       
-                            </span></div>):(<span className='text-5xl flex items-center justify-center text-white active' key={item.id}>   {item?.icon}       
+                            profileIcons.length-1==index ? (<div className='mt-10'><span className='flex items-center justify-center active text-5xl text-gray-500 hover:text-blue-500' key={item.id}>   {item?.icon}       
+                            </span></div>):(<span className='text-5xl flex items-center justify-center text-gray-500 active hover:text-blue-500' key={item.id}>   {item?.icon}       
                             </span>)                           
                             
                             )
