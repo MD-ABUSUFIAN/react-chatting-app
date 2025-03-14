@@ -1,5 +1,10 @@
 import React from 'react'
-import GroupCard from './GroupCard'
+import BlockedUsers from '../BlockedUsers'
+import Group from '../Group'
+import FriendsRequest from '../FriendsRequest'
+import UserList from '../UserList'
+import Friends from '../Friends'
+import GroupList from '../GroupList'
 
 const MainContent = () => {
   return (
@@ -11,31 +16,41 @@ const MainContent = () => {
       </div>
     
       <div className= 'grid grid-cols-3 items-center max-h-dvh gap-4 justify-between' >
-        {/* top left group content  */}
+        {/* Group List section start */}
         <div >
-        <GroupCard heading={"Group List"} button={"Join"} style={"bg-blue-500 text-white font bold px-7 py-2 rounded"}/>
+        <GroupList/>
         </div>
-        {/* top right group content  */}
+        {/* Group List section end */}
+
+        {/* friends section start */}
+        <div >
+        <Friends/>
+        </div>
+        {/* Friends setion end  */}
+
+        {/* users list section start */}
+        <div >
+        <UserList/>
+        </div>
+        {/* users list section end */}
 
         <div >
-        <GroupCard heading={"Friends"} button={"Accept"} style={""}/>
+          {/* Friends Request section start */}
+        <FriendsRequest/>
         </div>
-        {/* bottom left group content  */}
+        {/* Friends Request section end*/}
 
+        {/* Group user section start */}
         <div >
-        <GroupCard heading={"User List"} button={"+"} style={"bg-blue-500 text-white font bold px-4 py-2 rounded"}/>
+      <Group/>
         </div>
-        {/* bottom right group content  */}
+        {/* Group section end*/}
 
-        <div >
-        <GroupCard heading={"Friend  Request"} button={"Accept"} style={"bg-red-500 text-white font bold px-7 py-2 rounded"}/>
+        {/* blocked user section start */}
+        <div>
+          <BlockedUsers/>
         </div>
-        <div >
-        <GroupCard heading={" Group"} button={"Today, 8:56pm"} style={""}/>
-        </div>
-        <div >
-        <GroupCard heading={"Blocked Users"} button={"Unblock"} style={"bg-blue-500 text-white font bold px-7 py-2 rounded"}/>
-        </div>
+        {/* blocked user section end */}
     </div>
   </div>
   )

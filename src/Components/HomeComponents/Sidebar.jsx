@@ -2,7 +2,7 @@ import React from 'react'
 import { IoCloudUploadOutline, IoHomeOutline, IoSettingsOutline} from "react-icons/io5";
 import { LuMessageCircleMore } from "react-icons/lu";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { MdLogout } from "react-icons/md";
+import { MdLogout, MdSettingsSuggest } from "react-icons/md";
 
 
 
@@ -31,16 +31,15 @@ const Sidebar = () => {
         },
         {
             id:4,
-            icon:<IoHomeOutline />
+            icon:<MdSettingsSuggest/>
+
 
         },
         {
             id:5,
             icon:<MdLogout />
 
-
-
-        },
+        }
     ]
   return (
         <div className="sidebar bg-blue-500 w-full h-dvh">
