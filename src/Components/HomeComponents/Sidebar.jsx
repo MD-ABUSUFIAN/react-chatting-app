@@ -1,78 +1,114 @@
-import React from 'react'
-import { IoCloudUploadOutline, IoHomeOutline, IoSettingsOutline} from "react-icons/io5";
+import React, { useEffect } from 'react'
+import { IoCloudUploadOutline, IoHomeOutline, IoSettingsOutline } from "react-icons/io5";
 import { LuMessageCircleMore } from "react-icons/lu";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { MdLogout, MdSettingsSuggest } from "react-icons/md";
 
 
 
-import { NavLink ,
+import {
+    NavLink,
 } from 'react-router';
 
 
 const Sidebar = () => {
-    const profileIcons=[
+    const profileIcons = [
         {
-            id:1,
-            icon:<IoHomeOutline />
+            id: 1,
+            path: '/',
+            icon: <IoHomeOutline />
 
         },
         {
-            id:2,
-            icon:<LuMessageCircleMore />
-
-
-        },
-        {
-            id:3,
-            icon:<IoMdNotificationsOutline />
+            id: 2,
+            path: '/message',
+            icon: <LuMessageCircleMore />
 
 
         },
         {
-            id:4,
-            icon:<MdSettingsSuggest/>
+            id: 3,
+            path: '/notification',
+            icon: <IoMdNotificationsOutline />
 
 
         },
         {
-            id:5,
-            icon:<MdLogout />
+            id: 4,
+            path: '/settings',
+            icon: <MdSettingsSuggest />
+
+
+        },
+        {
+            id: 5,
+            icon: <MdLogout />
 
         }
     ]
-  return (
+    useEffect(() => {
+        const script = document.createElement("script")
+        script.src = "https://upload-widget.cloudinary.com/latest/global/all.js"
+        script.async = true;
+        document.body.appendChild(script)
+        
+
+    }, [])
+    const uploadPhoto = () => {
+        if(window.cloudinary){
+            cloudinary.openUploadWidget({
+                cloudName: "ddy6ugeaj", uploadPreset: "uploadProfile",
+                searchBySites: ["all", "cloudinary.com"],
+                searchByRights: true,
+                sources: ['local', 'url', 'image_search', 'camera', 'dropbox	', 'shutterstock	', 'gettyimages', 'istock', 'unsplash', 'google_drive'],
+                googleApiKey: 'AIzaSyCEtrvYRn-a6Kk9lLmFVW9ak4rULMWSC6g'
+            }, (error, result) => {
+                if (error) {
+                    throw new Error("photo upload failed")
+                }
+                else[
+                    console.log(result?.info?.secure_url
+                        )
+                ]
+            })
+        }
+        else{
+            throw new Error("photo not upload")
+        }
+        
+    }
+    return (
         <div className="sidebar bg-blue-500 w-full h-dvh">
             <div className="profileImgWrapper">
                 <div className=' relative flex items-center group justify-center ease-linear duration-500
 '>
-                <picture>
-                    <img className='w-[70px] h-[70px] rounded-full md:mt-10 cursor-pointer' src="https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg" alt="" />
-                </picture>
-                <div className="icon text-3xl group-hover:block hidden absolute left-1/2 top-1/2 -translate-x-1/2">
-                    <span>
-                    <IoCloudUploadOutline/>
-                    </span>
-                </div>
+                    <picture>
+                        <img className='w-[70px] h-[70px] rounded-full md:mt-10 cursor-pointer' src="https://img.freepik.com/free-vector/smiling-young-man-illustration_1308-174669.jpg" alt="" />
+                    </picture>
+                    <div className="icon text-3xl group-hover:block hidden absolute left-[50%] top-[50%] translate-x-[-50%]">
+                        <span className='text-red-500 font-bold text-5xl' onClick={uploadPhoto}>
+                            <IoCloudUploadOutline />
+                        </span>
+                    </div>
                 </div>
                 <div className='ProfileLinkWrapper flex flex-col gap-y-10 mt-10'>
-                    
 
-                        {
-                            profileIcons.map((item,index)=>
-                            profileIcons.length-1==index ? (<div className='mt-10'><span className='flex items-center justify-center active text-5xl text-gray-500 hover:text-blue-500' key={item.id}>   {item?.icon}       
-                            </span></div>):(<span className='text-5xl flex items-center justify-center text-gray-500 active hover:text-blue-500' key={item.id}>   {item?.icon}       
-                            </span>)                           
-                            
-                            )
-                        }
-                        
-                    
+
+                    {
+                        profileIcons.map((item, index) =>
+                            profileIcons.length - 1 == index ? (<div className='mt-10'><span className='flex items-center justify-center  text-5xl text-gray-500 ' key={item.id}>   {item?.icon}
+                            </span></div>) : (<NavLink to={item?.path}><span className='text-5xl flex items-center justify-center text-gray-500 ' key={item.id}>   {item?.icon}
+                            </span></NavLink>)
+
+                        )
+                    }
+
+
                 </div>
             </div>
         </div>
-    
-  )
+
+    )
 }
 
 export default Sidebar

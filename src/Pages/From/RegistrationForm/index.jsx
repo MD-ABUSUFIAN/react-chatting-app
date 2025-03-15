@@ -11,6 +11,11 @@ import {
   sendEmailVerification,
   updateProfile,
 } from 'firebase/auth';
+import { getDatabase, ref, set,push } from "firebase/database";
+import { useNavigate } from 'react-router';
+const db = getDatabase();
+
+
 
 
 const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
@@ -26,7 +31,9 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
   const [lastNameError, setLastNameError] = useState('');
   const [photoURLError, setPhotoUrlError] = useState('');
   const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [passwordError, setPasswordError] = useState('')
+  const navigate=useNavigate()
+
   const handleOnChange = async (e) => {
     if (e.target.name == 'FristName') {
       setFristName(e.target.value);
@@ -98,10 +105,23 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
             photoURL: `${photoURL}`,
           };
           updateProfile(auth.currentUser, userNamePhoto)
-            .then(() => {
-              setUsers(user);
-            })
+            // .then(() => {
+            //   setUsers(user);
+            // })
+            
         })
+        .then(()=>{
+          const datas=ref(db,'users/')
+          // const updateData=push(data)
+          set(push(datas), {
+            userId :auth.currentUser.uid,
+            username: auth.currentUser.displayName||lastName,
+            email: auth.currentUser.email||email,
+            profile_picture : auth.currentUser.photoURL||photoURL
+          });
+          navigate('/')
+        })
+       
         .catch((error) => {
           const errorMessage = error.message;
           sweetAlert('Oops Wrong...', errorMessage, 'error');
