@@ -41,7 +41,9 @@ const Friends = () => {
         }
     ]
   return (
-    <GroupCard groupUsers={groupUsers} heading={"Friends"} button={"Accept"} style={""}/>
+  <div className='px-3'>
+      <GroupCard groupUsers={groupUsers} heading={"Friends"} button={"Accept"} style={""}/>
+  </div>
   )
 }
 

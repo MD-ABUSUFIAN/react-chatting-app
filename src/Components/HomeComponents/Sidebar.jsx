@@ -46,37 +46,58 @@ const Sidebar = () => {
 
         }
     ]
-    useEffect(() => {
-        const script = document.createElement("script")
-        script.src = "https://upload-widget.cloudinary.com/latest/global/all.js"
-        script.async = true;
-        document.body.appendChild(script)
-        
-
-    }, [])
-    const uploadPhoto = () => {
-        if(window.cloudinary){
-            cloudinary.openUploadWidget({
-                cloudName: "ddy6ugeaj", uploadPreset: "uploadProfile",
-                searchBySites: ["all", "cloudinary.com"],
-                searchByRights: true,
-                sources: ['local', 'url', 'image_search', 'camera', 'dropbox	', 'shutterstock	', 'gettyimages', 'istock', 'unsplash', 'google_drive'],
-                googleApiKey: 'AIzaSyCEtrvYRn-a6Kk9lLmFVW9ak4rULMWSC6g'
-            }, (error, result) => {
-                if (error) {
-                    throw new Error("photo upload failed")
+    
+    useEffect(()=>{
+        const scripts=document.createElement("script")
+        scripts.src="https://upload-widget.cloudinary.com/latest/global/all.js";
+        scripts.async=true;
+        document.body.appendChild(scripts)
+    },[])
+ 
+    const uploadPhoto=()=>{
+       if(window.cloudinary){
+        cloudinary.openUploadWidget({
+            cloudName: "ddy6ugeaj", uploadPreset: "profileUpdatePhoto",
+            googleApiKey: 'AIzaSyCaO6guzjVU7apaiGNfv4jE3j35mNtLgbk' ,
+            searchByRights: true ,
+            searchBySites: ["all", "cloudinary.com"],
+            sources: [ 'local', 'url', 'unsplash','camera','dropbox','image_search','shutterstock','gettyimages','istock','google_drive']}, 
+            (error, result) => {
+                if(error){
+                    throw new Error("Cloudinary uplooad filed")
                 }
-                else[
-                    console.log(result?.info?.secure_url
-                        )
-                ]
-            })
-        }
-        else{
-            throw new Error("photo not upload")
-        }
-        
+                else{
+                    console.log(result?.info?.secure_url);
+                }
+             });
+       }
+       else{
+        console.log("so sorry cloudinary photo upload field");
+       }
     }
+    // const uploadPhoto = () => {
+    //     if(window.cloudinary){
+    //         cloudinary.openUploadWidget({
+    //             cloudName: "ddy6ugeaj", uploadPreset: "uploadProfile",
+    //             searchBySites: ["all", "cloudinary.com"],
+    //             searchByRights: true,
+    //             sources: ['local', 'url', 'image_search', 'camera', 'dropbox	', 'shutterstock	', 'gettyimages', 'istock', 'unsplash', 'google_drive'],
+    //             googleApiKey: 'AIzaSyCEtrvYRn-a6Kk9lLmFVW9ak4rULMWSC6g'
+    //         }, (error, result) => {
+    //             if (error) {
+    //                 throw new Error("photo upload failed")
+    //             }
+    //             else[
+    //                 console.log(result?.info?.secure_url
+    //                     )
+    //             ]
+    //         })
+    //     }
+    //     else{
+    //         throw new Error("photo not upload")
+    //     }
+        
+    // }
     return (
         <div className="sidebar bg-blue-500 w-full h-dvh">
             <div className="profileImgWrapper">
@@ -96,8 +117,8 @@ const Sidebar = () => {
 
                     {
                         profileIcons.map((item, index) =>
-                            profileIcons.length - 1 == index ? (<div className='mt-10'><span className='flex items-center justify-center  text-5xl text-gray-500 ' key={item.id}>   {item?.icon}
-                            </span></div>) : (<NavLink to={item?.path}><span className='text-5xl flex items-center justify-center text-gray-500 ' key={item.id}>   {item?.icon}
+                            profileIcons.length - 1 == index ? (<div key={item.id} className='mt-10'><span className='flex items-center justify-center  text-5xl text-gray-500 ' >   {item?.icon}
+                            </span></div>) : (<NavLink key={item?.id} to={item?.path}><span className='text-5xl flex items-center justify-center text-gray-500 ' >   {item?.icon}
                             </span></NavLink>)
 
                         )

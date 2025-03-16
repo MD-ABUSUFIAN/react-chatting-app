@@ -3,7 +3,7 @@ import React from 'react'
 const Card = ({user,button,style,border}) => {
   return (
     <>
-<div className={`groupContentWrapper ${border} px-4 py-1 border-gray-300 flex justify-between items-center`}>
+<div className={`groupContentWrapper ${border} px-4 py-1 border-gray-300  rounded-2xl flex justify-between items-center w-[100%]`}>
 
 <div className="groupContentLeft flex justify-between items-center">
     <div className="groupContentPhoto  h-[70px] w-[70px] rounded-full">

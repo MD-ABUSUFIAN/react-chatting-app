@@ -41,7 +41,9 @@ const GroupList = () => {
         }
     ]
   return (
+    <div className='px-3'>
     <GroupCard groupUsers={groupUsers} heading={"Group List"} button={"Join"} style={"bg-blue-500 text-white font bold px-7 py-2 rounded"}/>
+    </div>
   )
 }
 

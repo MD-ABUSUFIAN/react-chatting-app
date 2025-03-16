@@ -41,7 +41,9 @@ const Group = () => {
     }
 ]
   return (
-    <GroupCard groupUsers={groupUsers} heading={" Group"} button={"Today, 8:56pm"} style={""}/>
+    <div  className='px-3'>
+        <GroupCard groupUsers={groupUsers} heading={" Group"} button={"Today, 8:56pm"} style={""}/>
+    </div>
   )
 }
 

@@ -41,7 +41,7 @@ const BlockedUsers = () => {
     }
 ]
   return (
-<div >
+    <div className='px-3'>
         <GroupCard groupUsers={groupUsers} heading={"Blocked Users"} button={"Unblock"} style={"bg-blue-500 text-white font bold px-7 py-2 rounded"}/>
         </div>
   )

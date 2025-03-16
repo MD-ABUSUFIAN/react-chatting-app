@@ -5,14 +5,17 @@ import FriendsRequest from '../FriendsRequest'
 import UserList from '../UserList'
 import Friends from '../Friends'
 import GroupList from '../GroupList'
+import { HiDotsVertical } from 'react-icons/hi'
+import { CiSearch } from "react-icons/ci";
 
 const MainContent = () => {
   return (
   <div className=''>
     
-      <div className="search relative w-[30%]">
-      <input className='px-8 py-2 my-1 w-full rounded border text-2xl' type="text" name="search" placeholder='plz search '  id="" />
-      <button className='bg-blue-600 text-white text-xl px-2 py-[11px]  absolute top-[7%] right-[-3%] cursor-pointer rounded-br-xl rounded-tr-xl hover:bg-blue-400 hover:text-amber-600'>Search</button>
+      <div className="search relative w-[35%] px-4">
+      <input className='px-8 py-2 my-1 w-full rounded shadow text-xl' type="text" name="search" placeholder='search '  id="" />
+      <span className='text-2xl font-bold text-blue-600 absolute top-[30%] cursor-po right-[5%]'><HiDotsVertical /></span>
+      <span className='text-2xl font-bold text-gray-400 cursor-pointer absolute top-[25%] cursor-po left-[5%]'><CiSearch /></span>
       </div>
     
       <div className= 'grid grid-cols-3 items-center max-h-dvh gap-4 justify-between' >
