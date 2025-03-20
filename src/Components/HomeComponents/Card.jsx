@@ -1,4 +1,4 @@
-import React from 'react'
+
 
 const Card = ({user,button,style,border}) => {
   return (

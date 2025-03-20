@@ -18,7 +18,7 @@ const db = getDatabase();
 
 
 
-const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
+const Registration = ({ setUsers, users, handleSignOut }) => {
   const inputFieldData = inputData.signUpData();
   const [eye, setEye] = useState(true);
   const [term, setTerm] = useState(false);
@@ -35,6 +35,7 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
   const navigate=useNavigate()
 
   const handleOnChange = async (e) => {
+    
     if (e.target.name == 'FristName') {
       setFristName(e.target.value);
     } else if (e.target.name == 'LastName') {
@@ -131,10 +132,10 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
 
   // console.log(users)
   return (
-    <div className=" bg-gray-50 drop-shadow-lg px-[80px] py-15 rounded-2xl">
+    <div className=" bg-gray-50 drop-shadow-lg px-[80px] py-4 rounded-2xl ">
       {!users ? (
         <div>
-          <h1 className="text-blue-600 text-6xl font-extrabold text-center mb-5">
+          <h1 className="text-blue-600 text-6xl font-extrabold text-center mb-3">
             Registration
           </h1>
           <div className="inputFieldWrapper relative">
@@ -228,9 +229,9 @@ const RegistrationForm = ({ setUsers, users, handleSignOut }) => {
     </div>
   );
 };
-RegistrationForm.propTypes = {
+Registration.propTypes = {
   handleSignOut: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,
   setUsers: PropTypes.object.isRequired,
 };
-export default RegistrationForm;
+export default Registration;

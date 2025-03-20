@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { HiDotsVertical } from "react-icons/hi";
 import Card from './Card';
 
@@ -11,7 +11,7 @@ const GroupCard = ({heading,button,style,groupUsers}) => {
                 <h1 className='text-2xl font-bold'>{heading}</h1>
                 <span className='text-xl font-bold text-blue-600'><HiDotsVertical /></span>
             </div>
-         <div className='  p-3 rounded overflow-y-auto h-[280px] '>
+         <div className='  p-3 rounded overflow-y-auto md:h-[350px] '>
            
             <div className="cardWrapper py-3">
                 {

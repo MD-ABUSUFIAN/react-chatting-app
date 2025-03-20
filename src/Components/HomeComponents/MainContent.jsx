@@ -1,21 +1,18 @@
-import React from 'react'
+
 import BlockedUsers from '../BlockedUsers'
 import Group from '../Group'
 import FriendsRequest from '../FriendsRequest'
 import UserList from '../UserList'
 import Friends from '../Friends'
 import GroupList from '../GroupList'
-import { HiDotsVertical } from 'react-icons/hi'
-import { CiSearch } from "react-icons/ci";
+import Search from '../Search'
 
 const MainContent = () => {
   return (
   <div className=''>
     
       <div className="search relative w-[35%] px-4">
-      <input className='px-8 py-2 my-1 w-full rounded shadow text-xl' type="text" name="search" placeholder='search '  id="" />
-      <span className='text-2xl font-bold text-blue-600 absolute top-[30%] cursor-po right-[5%]'><HiDotsVertical /></span>
-      <span className='text-2xl font-bold text-gray-400 cursor-pointer absolute top-[25%] cursor-po left-[5%]'><CiSearch /></span>
+        <Search/>
       </div>
     
       <div className= 'grid grid-cols-3 items-center max-h-dvh gap-4 justify-between' >

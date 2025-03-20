@@ -32,19 +32,20 @@ const SingleSms = () => {
             <div className="smsMiddle h-[86%] w-full rounded-2xl">
 
             </div>
+            
             <div className="smsBottom  absolute bottom-[3%] w-full">
-                <div className="search w-[75%] mx-auto  bg-gray-200 rounded-4xl">
-                    <input className='px-8 py-3 shadow w-full outline-0 rounded-2xl ' type="text" name="search" placeholder='search ' id="" />
+                <div className="search w-[80%] mx-auto  bg-gray-200 rounded-4xl">
+                    <input className='px-9 py-3 shadow w-full  border-0 rounded-2xl ' type="text" name="search" placeholder='search ' id="" />
                 <div className="icon flex absolute items-center justify-between gap-2 bottom-[25%] right-[15%]">
                 <span className='text-2xl cursor-pointer'>
                     <MdOutlineEmojiEmotions />
                     </span>
-                    <span className='text-xl cursor-pointer'>
+                    <span className='text-xl cursor-pointer '>
                     <FaCamera />
                     </span>
                 </div>
                
-                    <span className='w-[45px] h-[45px] bg-blue-500 absolute right-[6%] bottom-[7%] flex items-center justify-center rounded-xl text-white cursor-pointer' onClick={sentMessage}>
+                    <span className='w-[45px] h-[45px] bg-blue-500 absolute right-[4%] bottom-[7%] flex items-center justify-center rounded-xl text-white cursor-pointer' onClick={sentMessage}>
                     <BsFillSendFill />
                     </span>
                

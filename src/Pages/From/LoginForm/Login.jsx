@@ -1,20 +1,20 @@
-import { userData } from '../../../lib/lib';
-import { FcGoogle } from 'react-icons/fc';
-import { FaEye, FaFacebook, FaGithub, FaTwitter } from 'react-icons/fa';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { HiEyeSlash } from 'react-icons/hi2';
-import LoginUser from '../LoginUser';
-import auth from '../../../Firebase/firebase.init';
-import sweetAlert from '../../../OtherFunction/Sweet Alert/sweetAlert.js';
-import { FacebookAuthProvider } from 'firebase/auth';
 import {
+  FacebookAuthProvider,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { FaEye, FaFacebook, FaGithub, FaTwitter } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+import { HiEyeSlash } from 'react-icons/hi2';
+import auth from '../../../Firebase/firebase.init.js';
+import { userData } from '../../../lib/lib.js';
+import sweetAlert from '../../../OtherFunction/Sweet Alert/sweetAlert.js';
+import LoginUser from '../LoginUser/index.jsx';
 
-const LoginForm = ({
+const Login = ({
   handleGoogleLogin,
   users,
   setUsers,
@@ -97,13 +97,13 @@ const LoginForm = ({
     }
   };
   return (
-    <div className="bg-gray-50 py-[84px] px-[94px] drop-shadow-lg rounded-2xl">
+    <div className="bg-gray-50 rounded-2xl drop-shadow-lg px-[94px] py-[84px]">
       {!users ? (
         <div>
-          <h1 className="text-blue-600 text-6xl pb-10 font-extrabold">
+          <h1 className="text-6xl text-blue-600 font-extrabold pb-10">
             Login Form
           </h1>
-          <div className="inputFieldWrapper relative ">
+          <div className="inputFieldWrapper relative">
             <form className="" action="#" onSubmit={(e) => e.preventDefault()}>
               {inputFieldData?.map(({ name, id, isRequred }) => (
                 <div key={id} className="flex flex-col gap-y-3">
@@ -112,7 +112,7 @@ const LoginForm = ({
                     <span className="text-red-500">{isRequred ? '*' : ''}</span>
                   </label>
                   <input
-                    className="p-4 drop-shadow-lg border border-black-500 rounded"
+                    className="border border-black-500 p-4 rounded drop-shadow-lg"
                     type={
                       name == 'Email'
                         ? 'email'
@@ -130,7 +130,7 @@ const LoginForm = ({
                       {password && (
                         <div
                           onClick={() => setEye(!eye)}
-                          className="text-2xl cursor-pointer inline-block absolute  bottom-[62%] right-[5%]"
+                          className="text-2xl absolute bottom-[62%] cursor-pointer inline-block right-[5%]"
                         >
                           {eye ? <HiEyeSlash /> : <FaEye />}
                         </div>
@@ -142,34 +142,34 @@ const LoginForm = ({
 
               <button
                 onClick={handleSubmit}
-                className="px-7 py-3 cursor-pointer bg-blue-600 text-white rounded font-bolder text-2xl mt-5"
+                className="bg-blue-600 rounded text-2xl text-white cursor-pointer font-bolder mt-5 px-7 py-3"
               >
                 Login
               </button>
               <p
                 onClick={handleResetPassword}
-                className="text-red-500 cursor-pointer mt-4 text-center text-xl font-bold"
+                className="text-center text-red-500 text-xl cursor-pointer font-bold mt-4"
               >
                 Change or Reset Your Password ?{' '}
               </p>
             </form>
-            <h1 className="text-center font-extrabold text-3xl">OR</h1>
-            <div className="authentication flex flex-row gap-x-4 items-center justify-center mt-5">
+            <h1 className="text-3xl text-center font-extrabold">OR</h1>
+            <div className="flex flex-row justify-center authentication gap-x-4 items-center mt-5">
               <FcGoogle
                 onClick={handleGoogleLogin}
-                className="text-6xl m-2 drop-shadow-xl cursor-pointer"
+                className="m-2 text-6xl cursor-pointer drop-shadow-xl"
               />
               <FaFacebook
                 onClick={handleFacebookLogin}
-                className="text-blue-500 text-5xl m-2 drop-shadow-lg cursor-pointer"
+                className="m-2 text-5xl text-blue-500 cursor-pointer drop-shadow-lg"
               />
               <FaGithub
                 onClick={handleGithubLogin}
-                className="text-5xl m-2 drop-shadow-lg cursor-pointer"
+                className="m-2 text-5xl cursor-pointer drop-shadow-lg"
               />
               <FaTwitter
                 onClick={handleTwitterLogin}
-                className="text-5xl text-blue-600 m-2 drop-shadow-lg cursor-pointer"
+                className="m-2 text-5xl text-blue-600 cursor-pointer drop-shadow-lg"
               />
             </div>
           </div>
@@ -180,7 +180,7 @@ const LoginForm = ({
     </div>
   );
 };
-LoginForm.propTypes = {
+Login.propTypes = {
   handleGoogleLogin: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func.isRequired,
   handleGithubLogin: PropTypes.func.isRequired,
@@ -188,4 +188,4 @@ LoginForm.propTypes = {
   users: PropTypes.object.isRequired,
   setUsers: PropTypes.object.isRequired,
 };
-export default LoginForm;
+export default Login;
