@@ -1,4 +1,7 @@
-import {sendPasswordResetEmail,signInWithEmailAndPassword,} from 'firebase/auth';
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FaEye, FaFacebook, FaGithub, FaTwitter } from 'react-icons/fa';
@@ -11,7 +14,6 @@ import LoginUser from '../LoginUser/index.jsx';
 
 // import { useNavigate } from 'react-router';
 
-
 const Login = ({
   handleGoogleLogin,
   users,
@@ -19,14 +21,13 @@ const Login = ({
   handleSignOut,
   handleGithubLogin,
   handleTwitterLogin,
-  handleFacebookLogin
+  handleFacebookLogin,
 }) => {
   // console.log(users.photoURL);
   const inputFieldData = userData.signInData();
   const [eye, setEye] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
 
   // const[emailError,setEmailError]=useState("");
   // const[passwordError,setPasswordError]=useState("");
@@ -59,7 +60,6 @@ const Login = ({
       });
   };
 
- 
   //  firebase reset password
   const handleResetPassword = () => {
     if (!email) {
