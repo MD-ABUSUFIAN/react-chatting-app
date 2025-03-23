@@ -58,7 +58,7 @@ const Registration = ({ setUsers, users, handleSignOut }) => {
       );
       const photoData = await result.json();
       setPhotoURL(photoData.url);
-      // console.log(photoData);
+      console.log(photoData);
     } else {
       setPassword(e.target.value);
     }
@@ -92,6 +92,8 @@ const Registration = ({ setUsers, users, handleSignOut }) => {
         .then((result) => {
           // Signed up
           const user = result.user;
+          console.log(user);
+          
           sendEmailVerification(auth.currentUser).then(() => {
             // Email verification sent!
             sweetAlert(

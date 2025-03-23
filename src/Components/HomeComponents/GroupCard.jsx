@@ -1,6 +1,7 @@
 
 import { HiDotsVertical } from "react-icons/hi";
 import Card from './Card';
+import PropTypes from 'prop-types';
 
 
 const GroupCard = ({heading,button,style,groupUsers}) => {
@@ -11,7 +12,7 @@ const GroupCard = ({heading,button,style,groupUsers}) => {
                 <h1 className='text-2xl font-bold'>{heading}</h1>
                 <span className='text-xl font-bold text-blue-600'><HiDotsVertical /></span>
             </div>
-         <div className='  p-3 rounded overflow-y-auto md:h-[350px] '>
+         <div className='  p-3 rounded overflow-y-auto md:h-[320px] '>
            
             <div className="cardWrapper py-3">
                 {
@@ -26,5 +27,11 @@ const GroupCard = ({heading,button,style,groupUsers}) => {
        </div>
     )
 }
-
+GroupCard.propTypes={
+    groupUsers:PropTypes.object.isRequired,
+    heading:PropTypes.string.isRequired,
+    button:PropTypes.string.isRequired,
+    style:PropTypes.string.isRequired,
+   
+}
 export default GroupCard

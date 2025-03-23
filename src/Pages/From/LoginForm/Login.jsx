@@ -1,9 +1,4 @@
-import {
-  FacebookAuthProvider,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-} from 'firebase/auth';
+import {sendPasswordResetEmail,signInWithEmailAndPassword,} from 'firebase/auth';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FaEye, FaFacebook, FaGithub, FaTwitter } from 'react-icons/fa';
@@ -14,6 +9,9 @@ import { userData } from '../../../lib/lib.js';
 import sweetAlert from '../../../OtherFunction/Sweet Alert/sweetAlert.js';
 import LoginUser from '../LoginUser/index.jsx';
 
+// import { useNavigate } from 'react-router';
+
+
 const Login = ({
   handleGoogleLogin,
   users,
@@ -21,12 +19,14 @@ const Login = ({
   handleSignOut,
   handleGithubLogin,
   handleTwitterLogin,
+  handleFacebookLogin
 }) => {
   // console.log(users.photoURL);
   const inputFieldData = userData.signInData();
   const [eye, setEye] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
 
   // const[emailError,setEmailError]=useState("");
   // const[passwordError,setPasswordError]=useState("");
@@ -59,20 +59,7 @@ const Login = ({
       });
   };
 
-  const handleFacebookLogin = () => {
-    const facebookProvider = new FacebookAuthProvider();
-    signInWithPopup(auth, facebookProvider)
-      .then((result) => {
-        // The signed-in user info.
-        const user = result.user;
-        sweetAlert('SuccesFully Login!', ' wellcome our New USER', 'success');
-        setUsers(user);
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        sweetAlert('Oops Wrong...', errorMessage, 'error');
-      });
-  };
+ 
   //  firebase reset password
   const handleResetPassword = () => {
     if (!email) {
@@ -185,6 +172,7 @@ Login.propTypes = {
   handleSignOut: PropTypes.func.isRequired,
   handleGithubLogin: PropTypes.func.isRequired,
   handleTwitterLogin: PropTypes.func.isRequired,
+  handleFacebookLogin: PropTypes.func.isRequired,
   users: PropTypes.object.isRequired,
   setUsers: PropTypes.object.isRequired,
 };
